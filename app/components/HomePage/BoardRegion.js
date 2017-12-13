@@ -5,7 +5,11 @@ import CardRegion from './CardRegion';
 export class BoardRegion extends Component { // eslint-disable-line react/prefer-stateless-function
 
   _beautifyVillagesData( villages ){
-    return villages
+    return villages.map((village)=>{
+      village.id = village._id;
+      village.disableClick = true;
+      return village
+    })
   }
 
   _getBoardData( rList, vList ){
