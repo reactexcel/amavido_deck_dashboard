@@ -5,12 +5,15 @@ import messages from './messages';
 
 import * as actions from './actions';
 
+import BoardRegion from '../../components/HomePage/BoardRegion';
+
 export class HomePage extends Component { // eslint-disable-line react/prefer-stateless-function
 	
 	constructor (props) {
     super(props);
     this.state = {
-      regionsList: []
+      regionsList: [],
+      villagesBoard: []
     };
   }
 
@@ -19,15 +22,24 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
   }
 
   componentWillReceiveProps(nextProps){
-  	console.log('----nextProps')
-  	console.log( nextProps )
+    let regionsList = nextProps.regionsList.map((region)=>{
+      region.id = region._id;
+      return region
+    })
+    this.setState({
+      regionsList: regionsList,
+      villagesBoard: nextProps.villagesBoard
+    })
   }
 
   render() {
-    let isLoading = this.state.isLoading;
     return (
     	<div>
-        asdasdasdasdasdasd 
+        <BoardRegion 
+          regionsList={this.state.regionsList}
+          villagesBoard={this.state.villagesBoard}
+          getRegionVillagesList={this.props.getRegionVillagesList}
+        />
       </div>
     );
   }
@@ -35,7 +47,8 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
 
 const mapStateToProps = (state, ownProps = {}) => {
   return {
-    regionsList: state.toJS().regionsList.regionsList
+    regionsList: state.toJS().regionsList.regionsList,
+    villagesBoard: state.toJS().regionsList.villagesBoard,
   }
 }
 
@@ -44,6 +57,9 @@ function mapDispatchToProps(dispatch) {
   	getRegionsList: () =>{
   		return dispatch(actions.getRegionsList());
   	},
+    getRegionVillagesList: (region) =>{
+      return dispatch(actions.getRegionVillagesList(region));
+    },
     dispatch
   };
 }
