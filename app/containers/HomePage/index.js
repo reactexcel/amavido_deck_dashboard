@@ -1,24 +1,51 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
- */
-
-import React from 'react';
+import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+import * as actions from './actions';
+
+export class HomePage extends Component { // eslint-disable-line react/prefer-stateless-function
+	
+	constructor (props) {
+    super(props);
+    this.state = {
+      regionsList: []
+    };
+  }
+
+  componentDidMount() {
+  	this.props.getRegionsList();
+  }
+
+  componentWillReceiveProps(nextProps){
+  	console.log('----nextProps')
+  	console.log( nextProps )
+  }
+
   render() {
+    let isLoading = this.state.isLoading;
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+    	<div>
+        asdasdasdasdasdasd 
+      </div>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps = {}) => {
+  return {
+    regionsList: state.toJS().regionsList.regionsList
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+  	getRegionsList: () =>{
+  		return dispatch(actions.getRegionsList());
+  	},
+    dispatch
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
