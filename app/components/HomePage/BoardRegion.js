@@ -18,7 +18,8 @@ export class BoardRegion extends Component { // eslint-disable-line react/prefer
       {
         id: 'lane1',
         title: 'Regions',
-        cards: rList
+        cards: rList,
+        showSearchBar: true
       }
     ]
     if( vList.length > 0  ){

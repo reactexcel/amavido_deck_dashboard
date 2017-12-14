@@ -13,6 +13,7 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
 	constructor (props) {
     super(props);
     this.state = {
+      completeRegionsList: [],
       regionsList: [],
       villagesBoard: []
     };
@@ -28,6 +29,7 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
       return region
     })
     this.setState({
+      completeRegionsList: regionsList,
       regionsList: regionsList,
       villagesBoard: nextProps.villagesBoard
     })
@@ -49,6 +51,15 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
     }
   }
 
+  _doSearch = (searchText) => {
+    let found = this.state.completeRegionsList.filter((el) => {
+      return el.name.de.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+    })
+    this.setState({
+      regionsList: found
+    })
+  }
+
   render() {
     return (
     	<div>
@@ -57,6 +68,7 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
           villagesBoard={this.state.villagesBoard}
           getRegionVillagesList={this._doGetRegionVillagesList}
           removeRegion={this.props.removeRegion}
+          doSearch={this._doSearch}
         />
       </div>
     );
