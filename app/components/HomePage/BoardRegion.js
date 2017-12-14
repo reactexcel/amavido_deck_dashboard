@@ -51,6 +51,7 @@ export class BoardRegion extends Component { // eslint-disable-line react/prefer
           data={boardData} 
           customCardLayout
           customLaneHeader={<LaneHeader {...this.props} />}
+          draggable={true}
         >
           <CardRegion getRegionVillagesList={this.props.getRegionVillagesList} {...this.props}/>
         </Board>
