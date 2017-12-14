@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Board } from "react-trello";
 import CardRegion from './CardRegion';
+import LaneHeader from './LaneHeader';
 
 export class BoardRegion extends Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -22,9 +23,16 @@ export class BoardRegion extends Component { // eslint-disable-line react/prefer
     ]
     if( vList.length > 0  ){
       vList.map((vL) => {
+
+        let vTitle = vL.region.name.de;
+        if( vL.villages.length === 0 ){
+          vTitle = vTitle + ' - ( No Village found )'
+        }
+
         lanes.push({
           id: vL.region.id,
-          title: vL.region.name.de,
+          title: vTitle,
+          label: '-',
           cards: this._beautifyVillagesData( vL.villages )
         })
       })
@@ -41,6 +49,7 @@ export class BoardRegion extends Component { // eslint-disable-line react/prefer
         <Board 
           data={boardData} 
           customCardLayout
+          customLaneHeader={<LaneHeader {...this.props} />}
         >
           <CardRegion getRegionVillagesList={this.props.getRegionVillagesList} {...this.props}/>
         </Board>

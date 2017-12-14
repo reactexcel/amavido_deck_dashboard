@@ -1,2 +1,3 @@
 export const REGIONS_LIST = 'REGIONS_LIST';
 export const VILLAGES_BOARD = 'VILLAGES_BOARD';
+export const REMOVE_REGION = 'REMOVE_REGION';

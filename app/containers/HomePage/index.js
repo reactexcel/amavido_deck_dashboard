@@ -39,6 +39,7 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
           regionsList={this.state.regionsList}
           villagesBoard={this.state.villagesBoard}
           getRegionVillagesList={this.props.getRegionVillagesList}
+          removeRegion={this.props.removeRegion}
         />
       </div>
     );
@@ -54,11 +55,14 @@ const mapStateToProps = (state, ownProps = {}) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-  	getRegionsList: () =>{
+  	getRegionsList: () => {
   		return dispatch(actions.getRegionsList());
   	},
-    getRegionVillagesList: (region) =>{
+    getRegionVillagesList: (region) => {
       return dispatch(actions.getRegionVillagesList(region));
+    },
+    removeRegion: ( regionId ) => {
+      return dispatch(actions.removeRegion(regionId));
     },
     dispatch
   };

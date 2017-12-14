@@ -2,7 +2,8 @@ import axios from "axios";
 
 import {
   REGIONS_LIST,
-  VILLAGES_BOARD
+  VILLAGES_BOARD,
+  REMOVE_REGION
 } from './constants';
 
 export function getRegionsList() {
@@ -44,5 +45,15 @@ export function getRegionVillagesList(region) {
           }
         });
       })
+  }
+}
+
+
+export function removeRegion(regionId) {
+  return function(dispatch) {
+    return dispatch ( {
+      type: REMOVE_REGION,
+      regionId: regionId
+    });
   }
 }
